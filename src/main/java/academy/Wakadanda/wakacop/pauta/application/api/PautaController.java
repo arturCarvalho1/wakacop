@@ -3,11 +3,9 @@ package academy.Wakadanda.wakacop.pauta.application.api;
 import academy.Wakadanda.wakacop.pauta.application.service.PautaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/pauta")
 @RequiredArgsConstructor
 @Log4j2
 public class PautaController implements PautaAPI{
