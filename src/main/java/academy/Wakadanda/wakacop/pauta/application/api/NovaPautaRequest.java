@@ -7,7 +7,6 @@ import lombok.ToString;
 
 import java.util.UUID;
 
-@Getter
 @ToString
 public class NovaPautaRequest {
     @NotBlank
@@ -16,4 +15,18 @@ public class NovaPautaRequest {
     private String descricao;
     @NotNull
     private UUID idAssociadoAutor;
-}
+
+        public String getTitulo() {
+            return titulo;
+        }
+
+        public String getDescricao() {
+            return descricao;
+        }
+
+        public UUID getIdAssociadoAutor() {
+            return idAssociadoAutor;
+        }
+    }
+
+
