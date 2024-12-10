@@ -13,6 +13,8 @@ public class PautaApplicationService implements PautaService {
     @Override
     public PautaCadastradaResponse CadastraPauta(NovaPautaRequest novaPauta) {
         log.info("[inicia] PautaApplicationService - CadastraPauta");
+        log.info("[novaPauta] {}",novaPauta);
+        log.info("[inicia] PautaApplicationService - CadastraPauta");
         return null;
     }
 }
