@@ -1,6 +1,7 @@
 package academy.Wakadanda.wakacop.sessaovotacao.domain;
 
 import academy.Wakadanda.wakacop.pauta.domain.Pauta;
+import academy.Wakadanda.wakacop.sessaovotacao.application.api.ResultadoSessaoResponse;
 import academy.Wakadanda.wakacop.sessaovotacao.application.api.SessaoAberturaRequest;
 import academy.Wakadanda.wakacop.sessaovotacao.application.api.VotoRequest;
 import jakarta.persistence.*;
@@ -34,7 +35,6 @@ public class SessaoVotacao {
     @LazyCollection(LazyCollectionOption.FALSE)
     @MapKey(name = "cpfAssociado")
     private Map<String, VotoPauta> votos;
-
     public SessaoVotacao(SessaoAberturaRequest sessaoAberturaRequest, Pauta pauta) {
         this.idPauta = pauta.getId();
         this.tempoDuracao = sessaoAberturaRequest.getTempoDuracao().orElse(1);
@@ -74,7 +74,28 @@ public class SessaoVotacao {
 
     private void validaAssociado(String cpfAssociado) {
         if (this.votos.containsKey(cpfAssociado)){
-            new RuntimeException("Associado já votou nessa sessão!");
+            throw new RuntimeException("Associado já votou nessa sessão!");
         }
+    }
+
+    public ResultadoSessaoResponse obtemResultado(){
+        atualizaStatus();
+        return new ResultadoSessaoResponse(this);
+    }
+
+    public Long getTotalVotos() {
+        return Long.valueOf(this.votos.size());
+    }
+
+    public Long getTotalSim(){
+        return calculaVotosPorOpcao(OpcaoVoto.SIM);
+    }
+    public Long getTotalNao() {
+        return calculaVotosPorOpcao(OpcaoVoto.NAO);
+    }
+    private Long calculaVotosPorOpcao(OpcaoVoto opcao) {
+        return votos.values().stream()
+                .filter(voto -> voto.opcaoIgual(opcao))
+                .count();
     }
 }
