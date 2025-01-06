@@ -26,8 +26,8 @@ public class ResultadoSessaoResponse {
         this.momentoAbertura = sessao.getMomentoAbertura();
         this.momentoEncerramento = sessao.getMomentoEncerramento();
         this.status = sessao.getStatus();
-        this.totalNao = sessao.getTotalVotos();
+        this.totalNao = sessao.getTotalNao();
         this.totalSim = sessao.getTotalSim();
-        this.totalVotos = sessao.getTotalNao();
+        this.totalVotos = sessao.getTotalVotos();
     }
 }
