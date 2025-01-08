@@ -1,0 +1,41 @@
+
+services:
+  localstack:
+    container_name: "${LOCALSTACK_DOCKER_NAME:-localstack_wakacop}"
+    image: localstack/localstack
+    ports:
+      - "4566:4566"                # LocalStack Gateway
+      - "4510-4539:4510-4539"      # Intervalo compatível
+      - "53:53"                    # DNS config (TCP, only required for Pro)
+      - "53:53/udp"                # DNS config (UDP, only required for Pro)
+      - "443:443"                  # LocalStack HTTPS Gateway (only required for Pro)
+    environment:
+      - DEBUG=${DEBUG:-}
+      - PERSISTENCE=${PERSISTENCE:-}
+      - LAMBDA_EXECUTOR=${LAMBDA_EXECUTOR:-}
+      - LOCALSTACK_API_KEY=${LOCALSTACK_API_KEY:-}  # Only required for Pro
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d/
+      - ./database/data:/var/lib/postgresql/data
+    networks:
+      - app.network
+
+networks:
+  app.network:
+    driver: bridge
+
+volumes:
+  postgres.data:
