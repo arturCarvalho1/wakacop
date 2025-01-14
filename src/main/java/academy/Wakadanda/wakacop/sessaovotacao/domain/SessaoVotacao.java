@@ -5,7 +5,7 @@ import academy.Wakadanda.wakacop.pauta.domain.Pauta;
 import academy.Wakadanda.wakacop.sessaovotacao.application.api.ResultadoSessaoResponse;
 import academy.Wakadanda.wakacop.sessaovotacao.application.api.SessaoAberturaRequest;
 import academy.Wakadanda.wakacop.sessaovotacao.application.api.VotoRequest;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +13,8 @@ import lombok.ToString;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.*;
 

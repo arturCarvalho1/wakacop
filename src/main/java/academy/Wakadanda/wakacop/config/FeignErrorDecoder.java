@@ -1,16 +1,16 @@
 package academy.Wakadanda.wakacop.config;
 
-import feign.Logger;
 import feign.Response;
 import feign.codec.ErrorDecoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.web.server.ResponseStatusException;
 
 import static java.text.MessageFormat.format;
-import static org.hibernate.sql.ast.SqlTreeCreationLogger.LOGGER;
 
 public class FeignErrorDecoder implements ErrorDecoder {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FeignErrorDecoder.class);
 
     @Override
     public Exception decode(String methodKey, Response response) {
@@ -20,10 +20,10 @@ public class FeignErrorDecoder implements ErrorDecoder {
             LOGGER.warn(message);
         else LOGGER.error(message);
         try {
-            return new ResponseStatusException(HttpStatusCode.valueOf(response.status()), response.reason());
+            return new ResponseStatusException(HttpStatus.valueOf(response.status()), response.reason());
         } catch (Exception e) {
             return new Exception("Status code: " + response.status()
-            + ", methodKey:" + methodKey.replaceAll("\\(.*\\)", ""));
+                    + ", methodKey:" + methodKey.replaceAll("\\(.*\\)", ""));
         }
     }
 }

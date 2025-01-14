@@ -47,7 +47,7 @@ public class SessaoVotacaoApplicatioService implements SessaoVotacaoService{
         SessaoVotacao sessao = sessaoVotacaoRepository.buscaPorId(idSessao);
         ResultadoSessaoResponse resultado = sessao.obtemResultado(publicadorResultadoSessao);
         sessaoVotacaoRepository.salva(sessao);
-                log.debug("[finaliza] SessaoVotacaoApplicatioService - obtemResultado");
+        log.debug("[finaliza] SessaoVotacaoApplicatioService - obtemResultado");
         return resultado;
     }
 }

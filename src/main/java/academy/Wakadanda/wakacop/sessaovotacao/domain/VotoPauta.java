@@ -1,13 +1,14 @@
 package academy.Wakadanda.wakacop.sessaovotacao.domain;
 
-import academy.Wakadanda.wakacop.pauta.domain.Pauta;
 import academy.Wakadanda.wakacop.sessaovotacao.application.api.VotoRequest;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
